@@ -1,0 +1,11 @@
+
+--------- VALIDOS -------------
+Clabe: 137040123456789235
+Numero de Cuenta: 12345678923
+Banco: 137 - BanCoppel
+Region: 042 - Ciudad Constitucion
+
+Clabe: 036239112345645239
+Numero de Cuenta: 11234564523
+Banco: 036 - Inbursa
+Region: 239 - San Luis de la Paz
