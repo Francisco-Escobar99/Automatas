@@ -1,3 +1,4 @@
+from cgitb import text
 from tkinter import messagebox as mb
 from email.mime import image
 import tkinter as tk
@@ -12,9 +13,9 @@ class Interfaz:
         self.ventana.config(background="#FFFDE2")
         
         self.labelTitulo=tk.Label(self.ventana, text="Pagos y Depositos", width=68, height=2, background="#DE2324", foreground="#FFFFFF", font=("Tahoma", 22,)).place(x=0,y=45)
-        imagen=tk.PhotoImage(file="Logo.png")
-        etiqueta=tk.Label(image=imagen, width=266, height=136)
-        etiqueta.place(x=70, y=13)
+        imagen=tk.PhotoImage(file="Logo4.png")
+        etiqueta=tk.Label(image=imagen, width=200, height=100)
+        etiqueta.place(x=70, y=30)
 
         self.labelSubTitulo=tk.Label(self.ventana, text="Clabe Interbancaria:", background="#FFFDE2", foreground="#DE2324", font=("Arial", 18)).place(x=150,y=200)
         self.CajaTexto=tk.Entry(self.ventana, highlightbackground="#DE2324",highlightthickness = 1, bd=0, font=("Arial", 13))
@@ -23,11 +24,14 @@ class Interfaz:
         self.btn.place(x=710,y=201, width=150, height=30)
         
         self.labelTitulo2=tk.Label(self.ventana, text="Informacion General", width=64, height=1,  background="#DE2324", foreground="#FFFFFF", font=("Arial", 15,)).place(x=150,y=300)
-        self.cuadro=tk.Entry(self.ventana, background="#FFFDE2", highlightbackground="#DE2324",highlightthickness = 1, bd=0).place(x=150,y=329, width=709, height=180)
+        self.cuadro=tk.Label(self.ventana, background="#FFFDE2", highlightbackground="#DE2324",highlightthickness = 1, bd=0).place(x=150,y=329, width=709, height=180)
         self.labelSubTitulo2=tk.Label(self.ventana, text="Numero de Cuenta:", background="#FFFDE2", foreground="#B80203", font=("Arial", 18)).place(x=200,y=350)
         self.labelSubTitulo3=tk.Label(self.ventana, text="Región:", background="#FFFDE2", foreground="#B80203", font=("Arial", 18)).place(x=200,y=400)
         self.labelSubTitulo4=tk.Label(self.ventana, text="Banco:", background="#FFFDE2", foreground="#B80203", font=("Arial", 18)).place(x=200,y=450)
-
+       
+        self.btnUdate=tk.Button(self.ventana, text="Limpiar",background="#DE2324", foreground="white", font=("Arial", 14), command= lambda:self.limpiar())
+        self.btnUdate.place(x=150,y=520, width=150, height=30)
+        
         def condicion():
             if len(self.CajaTexto.get()) == 0:
                 mb.showwarning('Advertencia', 'Campo Vacio')
@@ -36,7 +40,6 @@ class Interfaz:
             else:
                 clabe = str(self.CajaTexto.get())
                 self.verificarExpresion(clabe)
-         
         self.ventana.mainloop()
     
     def verificarExpresion(self, nva_cadena):
@@ -44,7 +47,7 @@ class Interfaz:
         evaluar = re.compile(expresionClabe)
 
         if evaluar.search(nva_cadena):
-            mb.showinfo('Correcto', 'Clabe Interbancaria Ingresada Valida')
+            mb.showinfo('Correcto', 'Clabe Interbancaria Ingresada es Valida')
             self.verificarDatos(nva_cadena)
         else:
             mb.showerror('Error', 'Clabe Interbancaria Ingresada NO Valida')
@@ -76,7 +79,6 @@ class Interfaz:
         cod_plaza = ''.join(cod_plaza)
         num_cuenta = ''.join(num_cuenta)
         dig_control = ''.join(dig_control)
-
         
         if cod_banco in num_banco:
             posicionBanco = num_banco.index(cod_banco)
@@ -87,13 +89,21 @@ class Interfaz:
                 print('Numero de Plaza: ',num_Plaza[posicionPlaza], '\nNombre de la Plaza: ', nombre_Plaza[posicionPlaza])
                 print('Numero de Cuenta: ', num_cuenta, '\nDigito de Control: ', dig_control)
 
-                tk.Label(self.ventana, text=(num_cuenta), background="#FFFDE2", foreground="#B80203", font=("Arial", 18)).place(x=430,y=350)
-                tk.Label(self.ventana, text=(nombre_Plaza[posicionPlaza]), background="#FFFDE2", foreground="#B80203", font=("Arial", 18)).place(x=300,y=400)
-                tk.Label(self.ventana, text=(bancos[posicionBanco]), background="#FFFDE2", foreground="#B80203", font=("Arial", 18)).place(x=300,y=450)
-
+                self.valor = tk.Label(self.ventana, text=(num_cuenta), background="#FFFDE2", foreground="gray", font=("Arial", 18))
+                self.valor.place(x=430,y=350)
+                self.valor1=tk.Label(self.ventana, text=(num_Plaza[posicionPlaza],'-',nombre_Plaza[posicionPlaza]), background="#FFFDE2", foreground="gray", font=("Arial", 18))
+                self.valor1.place(x=300,y=400)
+                self.valor2=tk.Label(self.ventana, text=(num_banco[posicionBanco],'-',bancos[posicionBanco]), background="#FFFDE2", foreground="gray", font=("Arial", 18))
+                self.valor2.place(x=300,y=450)
+                
             else:
                 mb.showerror('Error','La Clabe Interbancaria Ingresada, No Permite Depositos/Pagos')
         else:
             mb.showerror('Error','La Clabe Interbancaria Ingresada, No Permite Depositos/Pagos')
+
+    def limpiar(self):
+        self.valor.destroy()
+        self.valor1.destroy()
+        self.valor2.destroy()
 
 Inicio=Interfaz()

@@ -9,3 +9,17 @@ Clabe: 036239112345645239
 Numero de Cuenta: 11234564523
 Banco: 036 - Inbursa
 Region: 239 - San Luis de la Paz
+
+Clabe: 128012457685949344
+Numero de Cuenta: 45768594934
+Banco: 128 - Banco Autofin
+Region: 012 - Calvillo
+
+
+-------- NO VALIDOS ----------
+Clabe: 326239112345645239  --> 326 numero de banco no es valido
+
+Clabe: 137011123456789235  --> 011 numero de plaza correcta por los rangos pero 
+                               no se encuentra en las entidades conocidas
+
+Clabe: 1370401234567892310 --> tiene mas de 18 digitos
